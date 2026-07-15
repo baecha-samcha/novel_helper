@@ -2,7 +2,7 @@
 
 Electron + better-sqlite3 기반의 **완전 오프라인** 데스크톱 앱입니다. 네트워크 없이
 동작하며, 모든 데이터는 로컬 SQLite 파일(`novel.db`) 하나에 저장됩니다. DB 파일
-경로를 지정할 수 있어 여러 작품을 각각 다른 파일로 관리할 수 있습니다.
+경로를 지정할 수 있어 여러 작품을 각각 다른 파일로 관리할 수 있습니다. 추후에 [namulite](https://github.com/baecha-samcha/namulite)와 연동할 계획입니다.
 
 ## 기능
 
