@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="Content-Security-Policy"
+        content="default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline'; script-src 'self';" />
+  <title>NovelHelper</title>
+  <link rel="stylesheet" href="styles.css" />
+  <!-- vis-network (오프라인 로컬 번들) -->
+  <script src="../node_modules/vis-network/standalone/umd/vis-network.min.js"></script>
+</head>
+<body>
+  <div id="app">
+    <!-- 사이드바 -->
+    <nav id="sidebar">
+      <div class="brand">📖 NovelHelper</div>
+      <button class="nav-btn active" data-view="characters">👤 인물</button>
+      <button class="nav-btn" data-view="graph">🕸️ 관계도</button>
+      <button class="nav-btn" data-view="world">🌍 배경/세계관</button>
+      <button class="nav-btn" data-view="timeline">🕰️ 타임라인</button>
+      <button class="nav-btn" data-view="search">🔍 검색</button>
+
+      <div class="sidebar-spacer"></div>
+
+      <div class="db-box">
+        <div class="db-label">현재 작품</div>
+        <div id="db-path" class="db-path" title="">—</div>
+        <div class="db-actions">
+          <button id="btn-open-db" class="mini">열기</button>
+          <button id="btn-new-db" class="mini">새로</button>
+        </div>
+        <div class="db-actions">
+          <button id="btn-export-db" class="mini">DB저장</button>
+          <button id="btn-import-db" class="mini">DB불러</button>
+          <button id="btn-export-json" class="mini">JSON</button>
+        </div>
+      </div>
+    </nav>
+
+    <!-- 메인 콘텐츠 -->
+    <main id="content">
+      <section id="view-characters" class="view active"></section>
+      <section id="view-graph" class="view"></section>
+      <section id="view-world" class="view"></section>
+      <section id="view-timeline" class="view"></section>
+      <section id="view-search" class="view"></section>
+    </main>
+  </div>
+
+  <!-- 모달 컨테이너 -->
+  <div id="modal-root"></div>
+  <div id="toast-root"></div>
+
+  <script type="module" src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,62 @@
+{
+  "name": "novel-helper",
+  "version": "1.0.0",
+  "description": "소설 집필용 설정 관리 데스크톱 앱 (완전 오프라인)",
+  "main": "main.js",
+  "author": "novel-helper",
+  "license": "MIT",
+  "scripts": {
+    "start": "electron .",
+    "postinstall": "electron-builder install-app-deps",
+    "rebuild": "electron-builder install-app-deps",
+    "dist": "electron-builder",
+    "dist:win": "electron-builder --win",
+    "dist:linux": "electron-builder --linux"
+  },
+  "dependencies": {
+    "better-sqlite3": "^11.8.1",
+    "vis-network": "^9.1.9",
+    "vis-data": "^7.1.9"
+  },
+  "devDependencies": {
+    "electron": "^33.2.1",
+    "electron-builder": "^25.1.8"
+  },
+  "build": {
+    "appId": "com.novelhelper.app",
+    "productName": "NovelHelper",
+    "asar": true,
+    "asarUnpack": [
+      "node_modules/better-sqlite3/**"
+    ],
+    "files": [
+      "main.js",
+      "preload.js",
+      "db.js",
+      "src/**",
+      "node_modules/vis-network/standalone/umd/**",
+      "node_modules/vis-data/**"
+    ],
+    "directories": {
+      "output": "dist",
+      "buildResources": "build"
+    },
+    "win": {
+      "target": [
+        "nsis",
+        "portable"
+      ]
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true
+    },
+    "linux": {
+      "target": [
+        "AppImage",
+        "deb"
+      ],
+      "category": "Office"
+    }
+  }
+}

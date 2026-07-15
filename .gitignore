@@ -1,0 +1,8 @@
+node_modules/
+dist/
+*.log
+# 로컬 데이터베이스 / 사용자 데이터
+*.db
+*.db-shm
+*.db-wal
+config.json
