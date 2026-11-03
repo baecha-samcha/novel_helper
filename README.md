@@ -1,8 +1,8 @@
-# NovelHelper — 소설 집필용 설정 관리 앱
+# NovelHelper — 소설 설정 관리
 
-Electron + better-sqlite3 기반의 **완전 오프라인** 데스크톱 앱입니다. 네트워크 없이
-동작하며, 모든 데이터는 로컬 SQLite 파일(`novel.db`) 하나에 저장됩니다. DB 파일
-경로를 지정할 수 있어 여러 작품을 각각 다른 파일로 관리할 수 있습니다. 추후에 [namulite](https://github.com/baecha-samcha/namulite)와 연동할 계획입니다.
+소설 속 인물, 관계도, 세계관과 사건 타임라인을 한곳에서 관리하는 오프라인 데스크톱 앱입니다. 작품마다 SQLite 파일을 나누고 검색·백업·JSON 내보내기를 사용할 수 있습니다. Electron 기반이며 아래 설치 명령으로 실행하거나 Windows·Linux 패키지를 직접 빌드할 수 있습니다.
+
+모든 작품 데이터는 선택한 SQLite 파일(`novel.db`)에 저장됩니다. 위키 연동은 향후 계획이며 현재 기능이 아닙니다.
 
 ## 기능
 
@@ -12,14 +12,6 @@ Electron + better-sqlite3 기반의 **완전 오프라인** 데스크톱 앱입�
 - **사건 타임라인** — 작중 시간순 배치, 관련 인물 태그
 - **전체 텍스트 검색** — SQLite FTS5(trigram) 기반. 한글 부분 문자열 검색 지원
 - **백업** — DB 파일 내보내기/가져오기, JSON 내보내기
-
-## 데이터베이스 스키마
-
-`characters`, `relationships`, `locations`, `organizations`, `glossary`,
-`events`, `event_characters` 로 정규화. `relationships` 는 `characters` 를 두 개의
-외래키(`from_character_id`, `to_character_id`)로 참조하며, 인물 삭제 시
-관련 관계·태그가 `ON DELETE CASCADE` 로 함께 정리됩니다. 검색용 FTS5 가상 테이블
-`search_fts` 는 각 엔티티 저장 시 앱에서 자동으로 재색인합니다.
 
 ## 설치 및 실행
 
@@ -46,6 +38,11 @@ npm start
 > 에서 제거되어 일반 `npm install` 이 실패합니다. 위 절차는 이를 우회합니다.
 > 가능하면 Node LTS 사용을 권장합니다.
 
+## 데이터 위치
+
+- 기본 DB: `~/Documents/NovelHelper/novel.db` (최초 실행 시 자동 생성)
+- 마지막으로 연 DB 경로는 앱 설정에 저장되어 다음 실행 때 자동으로 열립니다
+- 사이드바 하단에서 다른 작품 DB 를 열거나 새로 만들 수 있습니다
 ## 빌드 (배포용 패키지)
 
 electron-builder 로 Windows / Linux 양쪽 빌드를 지원합니다.
@@ -57,6 +54,14 @@ npm run dist         # 현재 플랫폼
 ```
 
 산출물은 `dist/` 에 생성됩니다.
+
+## 데이터베이스 스키마
+
+`characters`, `relationships`, `locations`, `organizations`, `glossary`,
+`events`, `event_characters` 로 정규화. `relationships` 는 `characters` 를 두 개의
+외래키(`from_character_id`, `to_character_id`)로 참조하며, 인물 삭제 시
+관련 관계·태그가 `ON DELETE CASCADE` 로 함께 정리됩니다. 검색용 FTS5 가상 테이블
+`search_fts` 는 각 엔티티 저장 시 앱에서 자동으로 재색인합니다.
 
 ## 프로젝트 구조
 
@@ -76,9 +81,3 @@ src/
     timeline.js    타임라인
     search.js      전체 검색
 ```
-
-## 데이터 위치
-
-- 기본 DB: `~/Documents/NovelHelper/novel.db` (최초 실행 시 자동 생성)
-- 마지막으로 연 DB 경로는 앱 설정에 저장되어 다음 실행 때 자동으로 열립니다
-- 사이드바 하단에서 다른 작품 DB 를 열거나 새로 만들 수 있습니다
